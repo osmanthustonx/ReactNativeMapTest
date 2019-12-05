@@ -3,11 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
-    "test": "jest",
-    "lint": "eslint ."
+    "clean": "react-native-clean-project"
   },
   "dependencies": {
     "@react-native-community/geolocation": "^2.0.2",
@@ -17,7 +13,9 @@
     "react-native-action-button": "^2.8.5",
     "react-native-elements": "^1.2.5",
     "react-native-gesture-handler": "^1.4.1",
+    "react-native-map-link": "^2.5.2",
     "react-native-maps": "0.26.1",
+    "react-native-maps-directions": "^1.7.3",
     "react-native-permissions": "^2.0.3",
     "react-native-reanimated": "^1.3.0",
     "react-native-snap-carousel": "^3.8.4",
@@ -37,8 +35,5 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "scripts": {
-    "clean": "react-native-clean-project"
   }
 }

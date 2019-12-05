@@ -6,7 +6,8 @@ import {
   Image,
   Alert,
   Platform,
-  Dimensions
+  Dimensions,
+  Button
 } from 'react-native';
 import MapView,
 { PROVIDER_GOOGLE, Marker, Callout, Polygon, Circle }
@@ -14,7 +15,19 @@ import MapView,
 import { request, PERMISSIONS } from 'react-native-permissions';
 import Geolocation from '@react-native-community/geolocation';
 import Carousel from 'react-native-snap-carousel';
+import MapViewDirections from 'react-native-maps-directions';
+import {Popup, showLocation} from 'react-native-map-link';
 
+
+const destination = {latitude: 37.8025259, longitude: -122.4351431};
+const options = {
+  latitude: 37.8025259, 
+  longitude: -122.4351431,
+  title: 'The White House',
+  dialogTitle: 'This is the dialog Title',
+  dialogMessage: 'This is the amazing dialog Message',
+  cancelText: 'This is the cancel button text',
+};
 export default class Playground extends Component {
 
   static navigationOptions = {
@@ -22,6 +35,7 @@ export default class Playground extends Component {
   };
 
   state = {
+    isVisible: false,
     markers: [],
     coordinates: [
       { name: 'Burger', latitude: 37.8025259, longitude: -122.4351431, image: require('./img/burger.jpg') },
@@ -162,7 +176,13 @@ export default class Playground extends Component {
               </Marker>
             ))
           }
-
+        <MapViewDirections
+          origin={this.state.initialPosition}
+          destination={destination}
+          apikey={'GoogleMapAPI'}
+          strokeWidth={3}
+          strokeColor="hotpink"
+        />
 
         </MapView>
         <Carousel
@@ -175,6 +195,26 @@ export default class Playground extends Component {
           removeClippedSubviews={false}
           onSnapToItem={(index) => this.onCarouselItemChange(index)}
         />
+        <View style={{paddingTop:250}}>
+          <Popup
+            isVisible={this.state.isVisible}
+            onCancelPressed={() => this.setState({isVisible: false})}
+            onAppPressed={() => this.setState({isVisible: false})}
+            onBackButtonPressed={() => this.setState({isVisible: false})}
+            options={options}
+          />
+
+          <Button
+            onPress={() => showLocation(options)}
+            title="Show in Maps using action sheet"
+          />
+          <Button
+            onPress={() => {
+              this.setState({isVisible: true});
+            }}
+            title="Show in Maps using Popup"
+          />
+        </View>
       </View>
     );
   }
